@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="db.1.0-init" author="alevoryan" runOnChange="true">
+        <sql>
+            CREATE TABLE public.users
+            (
+                id               bigserial NOT NULL,
+                "name"           varchar NULL,
+                email            varchar   NOT NULL UNIQUE,
+                password         varchar   NOT NULL,
+                created_at       timestamp DEFAULT CURRENT_TIMESTAMP,
+                last_modified_at timestamp DEFAULT CURRENT_TIMESTAMP,
+                CONSTRAINT users_pk PRIMARY KEY (id)
+            )
+        </sql>
+    </changeSet>
+
+    <changeSet id="db.1.0-add-trigger-function" author="alevoryan">
+        <sql>
+            CREATE OR REPLACE FUNCTION update_last_modified()
+            RETURNS TRIGGER AS '
+            BEGIN
+            NEW.last_modified_at = CURRENT_TIMESTAMP;
+            RETURN NEW;
+            END;
+            ' LANGUAGE plpgsql;
+        </sql>
+    </changeSet>
+
+    <changeSet id="db.1.0-add-trigger" author="alevoryan">
+        <sql>
+            CREATE TRIGGER update_last_modified_trigger
+            BEFORE UPDATE ON public.users
+            FOR EACH ROW
+            EXECUTE FUNCTION update_last_modified();
+        </sql>
+    </changeSet>
+</databaseChangeLog>
