@@ -19,4 +19,4 @@
    ```bash
    git clone git@github.com:Arrrsenn/chat-api.git*
    ```
-   *  см. [Как сгенерировать SSH-ключ]( https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent ) )
+см. [Как сгенерировать SSH-ключ]( https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
