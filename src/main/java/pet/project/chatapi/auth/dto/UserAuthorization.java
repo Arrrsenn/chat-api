@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record UserAuthorization(
         @Email
-        @NotBlank
+        @NotBlank(message = "")
         String email,
         @NotBlank
         String password

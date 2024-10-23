@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="db.1.0-add-roles" author="alevoryan" runOnChange="true">
+        <sql>
+            CREATE TABLE public."roles"
+            (
+                id     bigserial NOT NULL,
+                "name" varchar NULL,
+                CONSTRAINT role_pk PRIMARY KEY (id)
+            );
+
+            CREATE TABLE public.user_roles
+            (
+                user_id bigint NOT NULL,
+                role_id bigint NOT NULL,
+                CONSTRAINT user_roles_fk_user FOREIGN KEY (user_id) REFERENCES public.users (id),
+                CONSTRAINT user_roles_fk_role FOREIGN KEY (role_id) REFERENCES public.roles (id)
+            );
+
+            INSERT INTO public."roles" (id, name)
+            VALUES (0, 'ADMIN'),
+                   (1, 'CUSTOMER');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -4,8 +4,10 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import pet.project.chatapi.db.entity.Role;
 import pet.project.chatapi.db.entity.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mapper
@@ -23,4 +25,8 @@ public interface UserMapper {
             VALUES (#{name}, #{email}, #{password})
             """)
     void createNewUser(User newUser);
+
+    @Select("""
+            """)
+    List<Role> getUserRoles(Long id);
 }
